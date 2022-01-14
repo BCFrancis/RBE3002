@@ -1,0 +1,10 @@
+<launch>
+<!-- Setup environment -->
+
+    <machine name="turtlebot" address="130.215.23.67" user="ubuntu"  env-loader="/opt/ros/melodic/env.sh" /> 
+
+    <include file="$(find turtlebot3_bringup)/launch/turtlebot3_model.launch" />
+    <!-- Lab 2 Node-->
+    <node name="lab2" pkg="rbe3002_lab2" type="lab2.py"/>
+
+  </launch>

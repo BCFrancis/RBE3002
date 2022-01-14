@@ -1,0 +1,37 @@
+<launch>
+    <!-- Final-->
+    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+    <arg name="x_pos" value="0.0"/>
+    <arg name="y_pos" value="0.0"/>
+    <arg name="z_pos" value="0.0"/>
+    <arg name="maze"  default="final_maze" />
+    <arg name="open_rviz" default="true"/>
+    <arg name="slam_methods" default="gmapping" doc="slam type [gmapping, cartographer, hector, karto, frontier_exploration]"/>
+    <!-- Uncomment this if you want an easier maze -->
+    <!-- <arg name="maze" value="final_maze_easier"/> -->
+
+    
+    <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch" />
+    <!--gmapping. We don't need mapserver if gmapping is running -->
+    <!--include file="$(find turtlebot3_slam)/launch/turtlebot3_slam.launch" /-->
+
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find rbe3002_final)/maps/mapirl.yaml"/>
+
+    <!-- AMCL -->
+    <include file="$(find turtlebot3_navigation)/launch/amcl.launch"/>
+
+    <!-- rviz -->
+    <group if="$(arg open_rviz)"> 
+      <node pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find turtlebot3_navigation)/rviz/turtlebot3_navigation.rviz"/>
+    </group>
+
+   
+    <node name="final" pkg="rbe3002_final" type="robot_main_p3.py"/>
+    <node name="frontier" pkg="rbe3002_final" type="frontier.py"/>
+    <node name="path_planner_3" pkg="rbe3002_final" type="path_planner_p3.py">
+        <param name="static" type="bool" value="True" />
+    </node>
+
+
+</launch>

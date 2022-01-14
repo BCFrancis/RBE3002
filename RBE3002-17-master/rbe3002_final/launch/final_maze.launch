@@ -1,0 +1,15 @@
+<launch>
+    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+    <arg name="x_pos"/>
+    <arg name="y_pos"/>
+    <arg name="z_pos"/>
+    <arg name="maze"  default="final_maze" />
+    <!-- Uncomment this if you want an easier maze -->
+    <!-- <arg name="maze" value="final_maze_easier"/> -->
+
+  <!-- Turtlebot3  -->
+  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_model.launch"/>
+  <include file="$(find turtlebot3_bringup)/launch/turtlebot3_remote.launch"/>
+
+
+</launch>
